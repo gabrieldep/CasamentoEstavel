@@ -142,10 +142,12 @@
     <ClCompile Include="AlgoritmosTp1.cpp" />
     <ClCompile Include="Cliente.cpp" />
     <ClCompile Include="Localizacao.cpp" />
+    <ClCompile Include="Loja.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cliente.h" />
     <ClInclude Include="Localizacao.h" />
+    <ClInclude Include="Loja.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
