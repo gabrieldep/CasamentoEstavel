@@ -1,5 +1,19 @@
 #include "Cliente.h"
 
+Cliente::Cliente()
+{
+	this->idade = 0;
+	this->identificacao = 0;
+	this->localizacao = new Localizacao();
+	this->uf = UF::NaoInformado;
+	this->tipoPagamento = TipoPagamento::NaoInformado;
+}
+
+Cliente::~Cliente()
+{
+	delete this->localizacao;
+}
+
 void Cliente::SetIdentificacao(int identificacao)
 {
 	this->identificacao = identificacao;
