@@ -1,5 +1,16 @@
 #include "Loja.h"
 
+Loja::Loja()
+{
+	this->identificacao = 0;
+	this->localizacao = new Localizacao();
+}
+
+Loja::~Loja()
+{
+	delete this->localizacao;
+}
+
 void Loja::SetIdentificacao(int identificacao)
 {
 	this->identificacao = identificacao;

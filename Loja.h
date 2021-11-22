@@ -6,6 +6,8 @@ class Loja
 		int identificacao;
 		Localizacao* localizacao;
 	public:
+		Loja();
+		~Loja();
 		void SetIdentificacao(int identificacao);
 		void SetLocalizacao(Localizacao* localizacao);
 		int GetIdentificacao();
