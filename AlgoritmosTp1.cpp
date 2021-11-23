@@ -3,6 +3,4 @@
 
 int main()
 {
-    Cliente cliente;
-    std::cout << "Hello World!\n";
 }
