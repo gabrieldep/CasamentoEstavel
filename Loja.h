@@ -16,5 +16,6 @@ class Loja
 		int GetIdentificacao();
 		Localizacao GetLocalizacao();
 		int GetEstoque();
+		void SomaEstoque(int i);
 };
 

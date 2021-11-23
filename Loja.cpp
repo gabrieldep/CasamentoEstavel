@@ -48,3 +48,8 @@ int Loja::GetEstoque()
 {
 	return this->estoque;
 }
+
+void Loja::SomaEstoque(int i)
+{
+	this->estoque += i;
+}
