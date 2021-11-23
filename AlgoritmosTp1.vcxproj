@@ -139,7 +139,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AlgoritmosTp1.cpp" />
+    <ClCompile Include="AlgoritmosTp1.cpp">
+      <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
     <ClCompile Include="Cliente.cpp" />
     <ClCompile Include="Localizacao.cpp" />
     <ClCompile Include="Loja.cpp" />
