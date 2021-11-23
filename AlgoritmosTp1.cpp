@@ -10,7 +10,6 @@ int main(int argc, const char* argv[])
 	string result;
 	char Linha[100];
 	FILE* arquivo = fopen(argv[1], "rt");
-	int aux = 0;
 	result = fgets(Linha, 100, arquivo);
 
 	//Leitura para definir o tamanho do Grid
@@ -19,6 +18,7 @@ int main(int argc, const char* argv[])
 	M = stoi(result.substr(posicao + 1, result.size()));
 
 	//Leitura das lojas
+
 	result = fgets(Linha, 100, arquivo);
 	qtdLojas = stoi(result);
 	Loja* lojas = new Loja[qtdLojas]();
@@ -27,18 +27,13 @@ int main(int argc, const char* argv[])
 	{
 		result = fgets(Linha, 100, arquivo);
 		if (result.size() == 0)break;
-		string s = result;
-		aux++;
-	}
+		int primeiroEspaco = result.find(" ");
+		int segundoEspaco = result.find_last_of(" ");
 
-
-
-	while (!feof(arquivo))
-	{
-		result = fgets(Linha, 100, arquivo);
-		if (result.size() == 0)break;
-		string s = result;
-		aux++;
+		lojas[i] = *new Loja(i,
+			stoi(result.substr(0, primeiroEspaco)),
+			stoi(result.substr(primeiroEspaco + 1, segundoEspaco)),
+			stoi(result.substr(segundoEspaco + 1, result.size())));
 	}
 
 	fclose(arquivo);
