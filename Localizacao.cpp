@@ -6,6 +6,12 @@ Localizacao::Localizacao()
 	this->y = 0;
 }
 
+Localizacao::Localizacao(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 Localizacao::~Localizacao()
 {
 }
