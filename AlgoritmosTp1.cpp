@@ -3,6 +3,16 @@
 #include "Loja.h"
 using namespace std;
 
+void AdicionaLojasPrioritariasAClientes(Loja** lojas, Cliente** clientes, int qtdClientes, int qtdLojas) {
+	int j = 0;
+	for (int i = 0; i < qtdClientes; i++) {
+		lojas[j]->AddCliente(clientes[i]);
+		for (; j < qtdLojas; j++) {
+			clientes[i]->AddLoja(&(*lojas)[j]);
+		}
+	}
+}
+
 int main(int argc, const char* argv[])
 {
 	//Tamanho do Grid
@@ -21,7 +31,7 @@ int main(int argc, const char* argv[])
 	result = fgets(Linha, 100, arquivo);
 	qtdLojas = stoi(result);
 	Loja* lojas = new Loja[qtdLojas]();
-	for(int i = 0; i < qtdLojas; i++)
+	for (int i = 0; i < qtdLojas; i++)
 	{
 		result = fgets(Linha, 100, arquivo);
 		if (result.size() == 0)break;
@@ -43,7 +53,7 @@ int main(int argc, const char* argv[])
 	{
 		result = fgets(Linha, 100, arquivo);
 		if (result.size() == 0)break;
-		
+
 		int aux = 0;
 		for (int j = 0; j < result.size(); j++) {
 			if (result[j] == ' ') {
@@ -62,5 +72,6 @@ int main(int argc, const char* argv[])
 			stoi(result.substr(posicoes[3] + 1, result.size())));
 	}
 
+	AdicionaLojasPrioritariasAClientes(&lojas, &clientes, qtdClientes, qtdLojas);
 	fclose(arquivo);
 }

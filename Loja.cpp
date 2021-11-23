@@ -68,7 +68,7 @@ void Loja::AddClienteInicio(Cliente* cliente)
 {
 }
 
-void Loja::AddCliente(Cliente* cliente, int posicao)
+void Loja::AddCliente(Cliente* cliente)
 {
 
 }
