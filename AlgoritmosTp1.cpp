@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc, const char* argv[])
 {
 	//Tamanho do Grid
-	int N = 0, M = 0, qtdLojas = 0;
+	int N = 0, M = 0, qtdLojas = 0, qtdClientes = 0;
 	string result;
 	char Linha[100];
 	FILE* arquivo = fopen(argv[1], "rt");
@@ -18,11 +18,9 @@ int main(int argc, const char* argv[])
 	M = stoi(result.substr(posicao + 1, result.size()));
 
 	//Leitura das lojas
-
 	result = fgets(Linha, 100, arquivo);
 	qtdLojas = stoi(result);
 	Loja* lojas = new Loja[qtdLojas]();
-
 	for(int i = 0; i < qtdLojas; i++)
 	{
 		result = fgets(Linha, 100, arquivo);
@@ -34,6 +32,32 @@ int main(int argc, const char* argv[])
 			stoi(result.substr(0, primeiroEspaco)),
 			stoi(result.substr(primeiroEspaco + 1, segundoEspaco)),
 			stoi(result.substr(segundoEspaco + 1, result.size())));
+	}
+
+	//Leitura dos clientes
+	result = fgets(Linha, 100, arquivo);
+	qtdClientes = stoi(result);
+	Cliente* clientes = new Cliente[qtdClientes]();
+	int* posicoes = new int[4]();
+	for (int i = 0; i < qtdClientes; i++)
+	{
+		result = fgets(Linha, 100, arquivo);
+		if (result.size() == 0)break;
+		
+		int aux = 0;
+		for (int j = 0; j < result.size(); j++) {
+			if (result[j] == ' ') {
+				posicoes[aux] = j;
+				aux++;
+			}
+		}
+
+		clientes[i] = *new Cliente(i,
+			stoi(result.substr(0, posicoes[0])),
+			result.substr(posicoes[0], posicoes[1] - 1),
+			result.substr(posicoes[1], posicoes[2] - 5),
+			stoi(result.substr(posicoes[2] + 1, posicoes[3])),
+			stoi(result.substr(posicoes[3] + 1, result.size())));
 	}
 
 	fclose(arquivo);
