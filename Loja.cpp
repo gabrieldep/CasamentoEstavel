@@ -1,11 +1,13 @@
 #include "Loja.h"
+#include <vector>
 
 Loja::Loja()
 {
 	this->identificacao = 0;
 	this->estoque = 0;
 	this->localizacao = new Localizacao();
-	*this->clientes = new Cliente[1]();
+	this->qtdClientes = 0;
+	this->clientes = new std::vector<Cliente*>;
 }
 
 Loja::Loja(int identificacao, int estoque, int x, int y)
@@ -13,7 +15,8 @@ Loja::Loja(int identificacao, int estoque, int x, int y)
 	this->identificacao = identificacao;
 	this->estoque = estoque;
 	this->localizacao = new Localizacao(x, y);
-	*this->clientes = new Cliente[1]();
+	this->qtdClientes = 0;
+	this->clientes = new std::vector<Cliente*>;
 }
 
 Loja::~Loja()
@@ -36,11 +39,6 @@ void Loja::SetEstoque(int estoque)
 	this->estoque = estoque;
 }
 
-void Loja::SetClientes(int qtdClientes)
-{
-	*this->clientes = new Cliente[qtdClientes]();
-}
-
 int Loja::GetIdentificacao()
 {
 	return this->identificacao;
@@ -56,12 +54,21 @@ int Loja::GetEstoque()
 	return this->estoque;
 }
 
-Cliente* Loja::GetClientes()
-{
-	return *this->clientes;
-}
-
 void Loja::SomaEstoque(int i)
 {
 	this->estoque += i;
+}
+
+void Loja::AddClienteFinal(Cliente* cliente)
+{
+	this->clientes->push_back(cliente);
+}
+
+void Loja::AddClienteInicio(Cliente* cliente)
+{
+}
+
+void Loja::AddCliente(Cliente* cliente, int posicao)
+{
+
 }
