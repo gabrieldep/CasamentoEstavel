@@ -9,9 +9,38 @@ Cliente::Cliente()
 	this->tipoPagamento = TipoPagamento::NaoInformado;
 }
 
+Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y)
+{
+	this->identificacao = identificacao;
+	this->idade = idade;
+	this->uf = GetUfFromString(uf);
+	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
+	this->localizacao = new Localizacao(x, y);
+}
+
 Cliente::~Cliente()
 {
 	delete this->localizacao;
+}
+
+UF Cliente::GetUfFromString(std::string uf)
+{
+	if (uf == "MG") return UF::MG;
+	else if (uf == "PR") return UF::PR;
+	else if (uf == "SP") return UF::SP;
+	else if (uf == "SC") return UF::SC;
+	else if (uf == "RJ") return UF::RJ;
+	else if (uf == "RN") return UF::RN;
+	else if (uf == "RS") return UF::RS;
+	else return UF::NaoInformado;
+}
+
+TipoPagamento Cliente::GetTipoPagamentoFromString(std::string tipoPagamento)
+{
+	if (tipoPagamento == "DINHEIRO") return TipoPagamento::Dinheiro;
+	else if (tipoPagamento == "DEBITO") return TipoPagamento::Debito;
+	else if (tipoPagamento == "CREDITO") return TipoPagamento::Credito;
+	else return TipoPagamento::NaoInformado;
 }
 
 void Cliente::SetIdentificacao(int identificacao)

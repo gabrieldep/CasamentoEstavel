@@ -13,8 +13,11 @@ class Cliente
 		Localizacao* localizacao;
 		UF uf;
 		TipoPagamento tipoPagamento;
+		UF GetUfFromString(std::string uf);
+		TipoPagamento GetTipoPagamentoFromString(std::string tipoPagamento);
 	public:
 		Cliente();
+		Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y);
 		~Cliente();
 		void SetIdentificacao(int identificacao);
 		void SetIdade(int idade);
