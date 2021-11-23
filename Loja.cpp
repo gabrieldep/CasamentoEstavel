@@ -5,6 +5,7 @@ Loja::Loja()
 	this->identificacao = 0;
 	this->estoque = 0;
 	this->localizacao = new Localizacao();
+	*this->clientes = new Cliente[1]();
 }
 
 Loja::Loja(int identificacao, int estoque, int x, int y)
@@ -12,6 +13,7 @@ Loja::Loja(int identificacao, int estoque, int x, int y)
 	this->identificacao = identificacao;
 	this->estoque = estoque;
 	this->localizacao = new Localizacao(x, y);
+	*this->clientes = new Cliente[1]();
 }
 
 Loja::~Loja()
@@ -34,6 +36,11 @@ void Loja::SetEstoque(int estoque)
 	this->estoque = estoque;
 }
 
+void Loja::SetClientes(int qtdClientes)
+{
+	*this->clientes = new Cliente[qtdClientes]();
+}
+
 int Loja::GetIdentificacao()
 {
 	return this->identificacao;
@@ -47,6 +54,11 @@ Localizacao Loja::GetLocalizacao()
 int Loja::GetEstoque()
 {
 	return this->estoque;
+}
+
+Cliente* Loja::GetClientes()
+{
+	return *this->clientes;
 }
 
 void Loja::SomaEstoque(int i)
