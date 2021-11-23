@@ -16,6 +16,7 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->uf = GetUfFromString(uf);
 	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
 	this->localizacao = new Localizacao(x, y);
+	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
 }
 
 Cliente::~Cliente()
@@ -37,9 +38,9 @@ UF Cliente::GetUfFromString(std::string uf)
 
 TipoPagamento Cliente::GetTipoPagamentoFromString(std::string tipoPagamento)
 {
-	if (tipoPagamento == "DINHEIRO") return TipoPagamento::Dinheiro;
+	if (tipoPagamento == "DINHEI") return TipoPagamento::Dinheiro;
 	else if (tipoPagamento == "DEBITO") return TipoPagamento::Debito;
-	else if (tipoPagamento == "CREDITO") return TipoPagamento::Credito;
+	else if (tipoPagamento == "CREDIT") return TipoPagamento::Credito;
 	else return TipoPagamento::NaoInformado;
 }
 

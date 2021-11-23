@@ -10,6 +10,7 @@ class Cliente
 	private:
 		int identificacao;
 		int idade;
+		float ticket;
 		Localizacao* localizacao;
 		UF uf;
 		TipoPagamento tipoPagamento;
