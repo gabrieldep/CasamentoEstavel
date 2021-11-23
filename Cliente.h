@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "Localizacao.h"
+#include "Loja.h"
 
 enum class UF { NaoInformado = -1, MG = 0, PR = 10, SP = 20, SC = 30, RJ = 40, RN = 50, RS = 60 };
 enum class TipoPagamento { NaoInformado = 0, Dinheiro = 1, Debito = 2, Credito = 3 };
@@ -14,6 +15,7 @@ class Cliente
 		Localizacao* localizacao;
 		UF uf;
 		TipoPagamento tipoPagamento;
+		Loja** lojas;
 		UF GetUfFromString(std::string uf);
 		TipoPagamento GetTipoPagamentoFromString(std::string tipoPagamento);
 	public:
@@ -25,10 +27,12 @@ class Cliente
 		void SetUf(UF uf);
 		void SetTipoPagamentoFrequente(TipoPagamento tipoPagamento);
 		void SetLocalizacao(Localizacao* localizacao);
+		void SetLojas(int qtdLojas);
 		int GetIdentificacao();
 		int GetIdade();
 		UF GetUf();
 		TipoPagamento GetTipoPagamentoFrequente();
 		Localizacao GetLocalizacao();
+		Loja* GetLojas();
 };
 
