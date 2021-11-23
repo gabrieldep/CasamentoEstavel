@@ -52,11 +52,13 @@ int main(int argc, const char* argv[])
 			}
 		}
 
+		string uf = result.substr(posicoes[0] + 1, posicoes[1] - 2);
+
 		clientes[i] = *new Cliente(i,
 			stoi(result.substr(0, posicoes[0])),
-			result.substr(posicoes[0], posicoes[1] - 1),
-			result.substr(posicoes[1], posicoes[2] - 5),
-			stoi(result.substr(posicoes[2] + 1, posicoes[3])),
+			result.substr(posicoes[0] + 1, 2),
+			result.substr(posicoes[1] + 1, 6),
+			stoi(result.substr(posicoes[2] + 1, result.size())),
 			stoi(result.substr(posicoes[3] + 1, result.size())));
 	}
 
