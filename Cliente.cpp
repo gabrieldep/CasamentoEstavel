@@ -7,7 +7,7 @@ Cliente::Cliente()
 	this->localizacao = new Localizacao();
 	this->uf = UF::NaoInformado;
 	this->tipoPagamento = TipoPagamento::NaoInformado;
-	*this->lojas = new Loja[1]();
+	this->lojas = new vector<Loja*>;
 }
 
 Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y)
@@ -18,7 +18,7 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
 	this->localizacao = new Localizacao(x, y);
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
-	*this->lojas = new Loja[1]();
+	this->lojas = new vector<Loja*>;
 }
 
 Cliente::~Cliente()
@@ -71,11 +71,6 @@ void Cliente::SetLocalizacao(Localizacao* localizacao)
 	this->localizacao = localizacao;
 }
 
-void Cliente::SetLojas(int qtdLojas)
-{
-	*this->lojas = new Loja[qtdLojas]();
-}
-
 int Cliente::GetIdentificacao()
 {
 	return this->identificacao;
@@ -101,7 +96,30 @@ Localizacao Cliente::GetLocalizacao()
 	return *this->localizacao;
 }
 
-Loja* Cliente::GetLojas()
+void Cliente::AddLojaFinal(Loja* loja)
 {
-	return *this->lojas;
+	this->lojas->push_back(loja);
+}
+
+void Cliente::AddLojaInicio(Loja* loja)
+{
+}
+
+void Cliente::AddLoja(Loja* loja)
+{
+	int aux = 0;
+	if (this->lojas->size() == 0) {
+		this->lojas->push_back(loja);
+	}
+	else {
+		while (this->GetDistanciaLoja(*loja) >= this->GetDistanciaLoja(*lojas->at(aux)) && lojas->size() > aux) {
+			aux++;
+		}
+		this->lojas->insert(lojas->begin() + aux, { loja });
+	}
+}
+
+int Cliente::GetDistanciaLoja(Loja loja)
+{
+	return this->localizacao->CalcularDistancia(loja.GetLocalizacao());
 }
