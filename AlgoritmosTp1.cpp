@@ -63,7 +63,6 @@ void DefinirPrioridadeLojas(vector<Loja*> lojas, vector<Cliente*> clientes) {
 			}
 		}
 	}
-
 }
 
 int main(int argc, const char* argv[])

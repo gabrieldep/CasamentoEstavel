@@ -19,7 +19,7 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->uf = GetUfFromString(uf);
 	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
 	this->localizacao = new Localizacao(x, y);
-	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
+	this->ticket = ((float)(abs(60.0 - (float)this->idade)) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
 	this->lojas = new vector<int>;
 	for (size_t i = 0; i < lojas.size(); i++)
 	{
