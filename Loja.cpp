@@ -65,76 +65,73 @@ void Loja::SomaEstoque(int i)
 
 bool Loja::AlocarClienteLoja(int idCliente, vector<Cliente*>* clientes)
 {
-    if (estoque == qtdClientes)
-    {
-        int maiorPosicaoNaFilaPrioridade = -1;
-        int pessoaMenosPrioritariaAlocada = -1;
-        for (int i = 0; i < estoque; i++)
-        {
-            int posicaoPessoaAtual = RetornaPosicaoCliente(idCliente, clientes);
-            if (posicaoPessoaAtual > maiorPosicaoNaFilaPrioridade)
-            {
-                maiorPosicaoNaFilaPrioridade = posicaoPessoaAtual;
-                pessoaMenosPrioritariaAlocada = clientes->at(i)->GetIdentificacao();
-            }
-        }
+	if (estoque == qtdClientes)
+	{
+		int maiorPosicaoNaFilaPrioridade = -1;
+		int pessoaMenosPrioritariaAlocada = -1;
+		for (int i = 0; i < estoque; i++)
+		{
+			int posicaoPessoaAtual = RetornaPosicaoCliente(idCliente, clientes);
+			if (posicaoPessoaAtual > maiorPosicaoNaFilaPrioridade)
+			{
+				maiorPosicaoNaFilaPrioridade = posicaoPessoaAtual;
+				pessoaMenosPrioritariaAlocada = clientes->at(i)->GetIdentificacao();
+			}
+		}
 
-        int posicaoNaFilaPrioridadeNovaPessoa = RetornaPosicaoCliente(idCliente, clientes);
-        if (posicaoNaFilaPrioridadeNovaPessoa < maiorPosicaoNaFilaPrioridade)
-        {
-            DesalocarClienteLoja(pessoaMenosPrioritariaAlocada);
-            return AlocarClienteLoja(idCliente, clientes);
-        }
-        return false;
-    }
-    this->clientes->push_back(idCliente);
-    qtdClientes++;
+		int posicaoNaFilaPrioridadeNovaPessoa = RetornaPosicaoCliente(idCliente, clientes);
+		if (posicaoNaFilaPrioridadeNovaPessoa < maiorPosicaoNaFilaPrioridade)
+		{
+			DesalocarClienteLoja(pessoaMenosPrioritariaAlocada);
+			return AlocarClienteLoja(idCliente, clientes);
+		}
+		return false;
+	}
+	this->clientes->push_back(idCliente);
+	qtdClientes++;
 
-    return true;
+	return true;
 }
 
 void Loja::DesalocarClienteLoja(int idCliente)
 {
-    int posicaoPessoa = 0;
-    for (int i = 0; i < estoque; i++)
-    {
-        if (this->clientes->at(i) == idCliente)
-        {
-            posicaoPessoa = i;
-            break;
-        }
-    }
+	int posicaoPessoa = 0;
+	for (int i = 0; i < estoque; i++)
+	{
+		if (this->clientes->at(i) == idCliente)
+		{
+			posicaoPessoa = i;
+			break;
+		}
+	}
 
-    for (int i = posicaoPessoa; i < estoque - 1; i++)
-    {
-        std::remove(this->clientes->begin(), this->clientes->end(), i);
-    }
+	this->clientes->erase(this->clientes->begin() + posicaoPessoa);
 
-    qtdClientes--;
+	qtdClientes--;
 }
 
 int Loja::RetornaPosicaoCliente(int idCliente, vector<Cliente*>* clientes)
 {
-    int i = 0;
-    while (true)
-    {
-        if (clientes->at(i)->GetIdentificacao() == idCliente)
-            return i;
-        i++;
-    }
-    return -1;
+	int i = 0;
+	while (true)
+	{
+		if (clientes->at(i)->GetIdentificacao() == idCliente)
+			return i;
+		i++;
+	}
+	return -1;
 }
 
 void Loja::ListarClientesAlocadas()
 {
-    if (qtdClientes == 0)
-        return;
+	if (qtdClientes == 0)
+		return;
 
-    cout << this->identificacao << endl;
-    for (int i = 0; i < qtdClientes; i++)
-    {
-        cout << this->clientes->at(i) << " ";
-    }
-    cout << endl;
+	cout << this->identificacao << endl;
+	for (int i = 0; i < qtdClientes; i++)
+	{
+		cout << this->clientes->at(i) << " ";
+	}
+	cout << endl;
 }
 

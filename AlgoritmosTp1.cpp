@@ -9,7 +9,7 @@ Localizacao* localizacaoAtual = new Localizacao();
 bool MaiorTicket(Cliente* c1, Cliente* c2)
 {
 	return c1->GetTicket() == c2->GetTicket() ?
-		c1->GetIdentificacao() < c2->GetIdentificacao() : c1->GetTicket() < c2->GetTicket();
+		c1->GetIdentificacao() < c2->GetIdentificacao() : c1->GetTicket() > c2->GetTicket();
 }
 
 bool MenorDistancia(Loja* l1, Loja* l2)
@@ -128,6 +128,8 @@ int main(int argc, const char* argv[])
 			stoi(result.substr(posicoes[3] + 1, result.size())),
 			SortLoja(*lojas)));
 	}
+
+	*clientes = SortClientes(*clientes);
 
 	DefinirPrioridadeLojas(*lojas, *clientes);
 
