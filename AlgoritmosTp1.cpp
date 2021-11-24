@@ -4,15 +4,27 @@
 #include <algorithm>
 
 using namespace std;
+Localizacao* localizacaoAtual = new Localizacao();
 
 bool MaiorTicket(Cliente* c1, Cliente* c2)
 {
-	return c1->GetTicket() == c2->GetTicket() ? 
+	return c1->GetTicket() == c2->GetTicket() ?
 		c1->GetIdentificacao() < c2->GetIdentificacao() : c1->GetTicket() < c2->GetTicket();
 }
 
-void SortClientes(vector<Cliente*>* clientes) {
-	sort(clientes->begin(), clientes->end(), MaiorTicket);
+bool MenorDistancia(Loja* l1, Loja* l2)
+{
+	return l1->GetLocalizacao().CalcularDistancia(*localizacaoAtual) < l2->GetLocalizacao().CalcularDistancia(*localizacaoAtual);
+}
+
+vector<Cliente*> SortClientes(vector<Cliente*> clientes) {
+	sort(clientes.begin(), clientes.end(), MaiorTicket);
+	return clientes;
+}
+
+vector<Loja*> SortLoja(vector<Loja*> lojas) {
+	sort(lojas.begin(), lojas.end(), MenorDistancia);
+	return lojas;
 }
 
 int main(int argc, const char* argv[])
@@ -66,14 +78,17 @@ int main(int argc, const char* argv[])
 		}
 
 		string uf = result.substr(posicoes[0] + 1, posicoes[1] - 2);
+		localizacaoAtual = new Localizacao(stoi(result.substr(posicoes[2] + 1, result.size())),
+			stoi(result.substr(posicoes[3] + 1, result.size())));
 
 		clientes->push_back(new Cliente(i,
 			stoi(result.substr(0, posicoes[0])),
 			result.substr(posicoes[0] + 1, 2),
 			result.substr(posicoes[1] + 1, 6),
 			stoi(result.substr(posicoes[2] + 1, result.size())),
-			stoi(result.substr(posicoes[3] + 1, result.size()))));
+			stoi(result.substr(posicoes[3] + 1, result.size())),
+			SortLoja(*lojas)));
+		
 	}
-	SortClientes(clientes);
 	fclose(arquivo);
 }

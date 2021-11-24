@@ -23,7 +23,7 @@ private:
 	int GetDistanciaLoja(Loja loja);
 public:
 	Cliente();
-	Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y);
+	Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y, vector<Loja*> lojas);
 	~Cliente();
 	void SetIdentificacao(int identificacao);
 	void SetIdade(int idade);

@@ -7,10 +7,11 @@ Cliente::Cliente()
 	this->localizacao = new Localizacao();
 	this->uf = UF::NaoInformado;
 	this->tipoPagamento = TipoPagamento::NaoInformado;
+	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
 	this->lojas = new vector<Loja*>;
 }
 
-Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y)
+Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y, vector<Loja*> lojas)
 {
 	this->identificacao = identificacao;
 	this->idade = idade;
@@ -18,7 +19,7 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
 	this->localizacao = new Localizacao(x, y);
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
-	this->lojas = new vector<Loja*>;
+	this->lojas = &lojas;
 }
 
 Cliente::~Cliente()
