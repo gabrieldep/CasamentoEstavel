@@ -81,6 +81,11 @@ int Cliente::GetIdade()
 	return this->idade;
 }
 
+int Cliente::GetTicket()
+{
+	return this->ticket;
+}
+
 UF Cliente::GetUf()
 {
 	return this->uf;

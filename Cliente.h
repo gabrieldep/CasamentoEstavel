@@ -32,6 +32,7 @@ public:
 	void SetLocalizacao(Localizacao* localizacao);
 	int GetIdentificacao();
 	int GetIdade();
+	int GetTicket();
 	UF GetUf();
 	TipoPagamento GetTipoPagamentoFrequente();
 	Localizacao GetLocalizacao();

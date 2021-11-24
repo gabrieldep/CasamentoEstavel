@@ -1,16 +1,18 @@
 #include <iostream>
 #include "Cliente.h"
 #include "Loja.h"
+#include <algorithm>
+
 using namespace std;
 
-void AdicionaLojasPrioritariasAClientes(Loja** lojas, Cliente** clientes, int qtdClientes, int qtdLojas) {
-	int j = 0;
-	for (int i = 0; i < qtdClientes; i++) {
-		lojas[j]->AddCliente(clientes[i]);
-		for (; j < qtdLojas; j++) {
-			clientes[i]->AddLoja(&(*lojas)[j]);
-		}
-	}
+bool MaiorTicket(Cliente* c1, Cliente* c2)
+{
+	return c1->GetTicket() == c2->GetTicket() ? 
+		c1->GetIdentificacao() < c2->GetIdentificacao() : c1->GetTicket() < c2->GetTicket();
+}
+
+void SortClientes(vector<Cliente*>* clientes) {
+	sort(clientes->begin(), clientes->end(), MaiorTicket);
 }
 
 int main(int argc, const char* argv[])
@@ -30,7 +32,8 @@ int main(int argc, const char* argv[])
 	//Leitura das lojas
 	result = fgets(Linha, 100, arquivo);
 	qtdLojas = stoi(result);
-	Loja* lojas = new Loja[qtdLojas]();
+	vector<Loja*>* lojas = new std::vector<Loja*>;
+
 	for (int i = 0; i < qtdLojas; i++)
 	{
 		result = fgets(Linha, 100, arquivo);
@@ -38,16 +41,16 @@ int main(int argc, const char* argv[])
 		int primeiroEspaco = result.find(" ");
 		int segundoEspaco = result.find_last_of(" ");
 
-		lojas[i] = *new Loja(i,
+		lojas->push_back(new Loja(i,
 			stoi(result.substr(0, primeiroEspaco)),
 			stoi(result.substr(primeiroEspaco + 1, segundoEspaco)),
-			stoi(result.substr(segundoEspaco + 1, result.size())));
+			stoi(result.substr(segundoEspaco + 1, result.size()))));
 	}
 
 	//Leitura dos clientes
 	result = fgets(Linha, 100, arquivo);
 	qtdClientes = stoi(result);
-	Cliente* clientes = new Cliente[qtdClientes]();
+	vector<Cliente*>* clientes = new std::vector<Cliente*>;
 	int* posicoes = new int[4]();
 	for (int i = 0; i < qtdClientes; i++)
 	{
@@ -64,14 +67,13 @@ int main(int argc, const char* argv[])
 
 		string uf = result.substr(posicoes[0] + 1, posicoes[1] - 2);
 
-		clientes[i] = *new Cliente(i,
+		clientes->push_back(new Cliente(i,
 			stoi(result.substr(0, posicoes[0])),
 			result.substr(posicoes[0] + 1, 2),
 			result.substr(posicoes[1] + 1, 6),
 			stoi(result.substr(posicoes[2] + 1, result.size())),
-			stoi(result.substr(posicoes[3] + 1, result.size())));
+			stoi(result.substr(posicoes[3] + 1, result.size()))));
 	}
-
-	AdicionaLojasPrioritariasAClientes(&lojas, &clientes, qtdClientes, qtdLojas);
+	SortClientes(clientes);
 	fclose(arquivo);
 }

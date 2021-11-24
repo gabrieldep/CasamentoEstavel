@@ -70,5 +70,5 @@ void Loja::AddClienteInicio(Cliente* cliente)
 
 void Loja::AddCliente(Cliente* cliente)
 {
-
+	this->clientes->push_back(cliente);
 }
