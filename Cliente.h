@@ -17,8 +17,8 @@ private:
 	Localizacao* localizacao;
 	UF uf;
 	TipoPagamento tipoPagamento;
-	Loja* lojaSelecionada;
-	vector<Loja*>* lojas;
+	int lojaSelecionada;
+	vector<int>* lojas;
 	UF GetUfFromString(std::string uf);
 	TipoPagamento GetTipoPagamentoFromString(std::string tipoPagamento);
 	int GetDistanciaLoja(Loja loja);
@@ -29,13 +29,13 @@ public:
 	void SetIdentificacao(int identificacao);
 	void SetIdade(int idade);
 	void SetUf(UF uf);
-	void SetLojaSelecionada(Loja loja);
+	void SetLojaSelecionada(int idLoja);
 	void SetTipoPagamentoFrequente(TipoPagamento tipoPagamento);
 	void SetLocalizacao(Localizacao* localizacao);
 	int GetIdentificacao();
 	int GetIdade();
 	int GetTicket();
-	Loja GetLojaSelecionada();
+	int GetLojaSelecionada();
 	UF GetUf();
 	TipoPagamento GetTipoPagamentoFrequente();
 	Localizacao GetLocalizacao();

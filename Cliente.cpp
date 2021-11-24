@@ -8,8 +8,8 @@ Cliente::Cliente()
 	this->uf = UF::NaoInformado;
 	this->tipoPagamento = TipoPagamento::NaoInformado;
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
-	this->lojas = new vector<Loja*>;
-	this->lojaSelecionada = new Loja();
+	this->lojas = new vector<int>;
+	this->lojaSelecionada = -1;
 }
 
 Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y, vector<Loja*> lojas)
@@ -20,8 +20,12 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->tipoPagamento = GetTipoPagamentoFromString(tipoPagamento);
 	this->localizacao = new Localizacao(x, y);
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
-	this->lojas = &lojas;
-	this->lojaSelecionada = new Loja();
+	this->lojas = new vector<int>;
+	for (size_t i = 0; i < lojas.size(); i++)
+	{
+		this->lojas->push_back(lojas.at(i)->GetIdentificacao());
+	}
+	this->lojaSelecionada = -1;
 }
 
 Cliente::~Cliente()
@@ -64,9 +68,9 @@ void Cliente::SetUf(UF uf)
 	this->uf = uf;
 }
 
-void Cliente::SetLojaSelecionada(Loja loja)
+void Cliente::SetLojaSelecionada(int idLoja)
 {
-	this->lojaSelecionada = &loja;
+	this->lojaSelecionada = idLoja;
 }
 
 void Cliente::SetTipoPagamentoFrequente(TipoPagamento tipoPagamento)
@@ -94,9 +98,9 @@ int Cliente::GetTicket()
 	return this->ticket;
 }
 
-Loja Cliente::GetLojaSelecionada()
+int Cliente::GetLojaSelecionada()
 {
-	return *this->lojaSelecionada;
+	return this->lojaSelecionada;
 }
 
 UF Cliente::GetUf()
@@ -116,7 +120,6 @@ Localizacao Cliente::GetLocalizacao()
 
 void Cliente::AddLojaFinal(Loja* loja)
 {
-	this->lojas->push_back(loja);
 }
 
 void Cliente::AddLojaInicio(Loja* loja)
@@ -125,16 +128,6 @@ void Cliente::AddLojaInicio(Loja* loja)
 
 void Cliente::AddLoja(Loja* loja)
 {
-	int aux = 0;
-	if (this->lojas->size() == 0) {
-		this->lojas->push_back(loja);
-	}
-	else {
-		while (this->GetDistanciaLoja(*loja) >= this->GetDistanciaLoja(*lojas->at(aux)) && lojas->size() > aux) {
-			aux++;
-		}
-		this->lojas->insert(lojas->begin() + aux, { loja });
-	}
 }
 
 int Cliente::GetDistanciaLoja(Loja loja)
