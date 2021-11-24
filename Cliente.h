@@ -42,5 +42,7 @@ public:
 	void AddLojaFinal(Loja* loja);
 	void AddLojaInicio(Loja* loja);
 	void AddLoja(Loja* loja);
+	bool PrefereLojaNovaAAlocada(int idLoja);
+	int RetornaPosicaoLoja(int idLoja);
 };
 

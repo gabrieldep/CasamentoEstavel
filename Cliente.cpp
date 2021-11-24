@@ -134,3 +134,24 @@ int Cliente::GetDistanciaLoja(Loja loja)
 {
 	return this->localizacao->CalcularDistancia(loja.GetLocalizacao());
 }
+
+bool Cliente::PrefereLojaNovaAAlocada(int idLoja)
+{
+	if (RetornaPosicaoLoja(idLoja) < RetornaPosicaoLoja(lojaSelecionada))
+	{
+		return true;
+	}
+	return false;
+}
+
+int Cliente::RetornaPosicaoLoja(int idLoja)
+{
+	int i = 0;
+	while (true)
+	{
+		if (this->lojas->at(i) == idLoja)
+			return i;
+		i++;
+	}
+	return -1;
+}

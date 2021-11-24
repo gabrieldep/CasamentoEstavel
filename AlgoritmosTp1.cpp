@@ -33,23 +33,37 @@ vector<Loja*> SortLoja(vector<Loja*> lojas) {
 }
 
 void DefinirPrioridadeLojas(vector<Loja*> lojas, vector<Cliente*> clientes) {
-	for (size_t i = 0; i < lojas.size(); i++)
-	{
-		for (size_t j = 0; j < clientes.size(); j++)
-		{
-			if (lojas.at(i)->GetEstoque() == 0)break;
+	int numeroAlocados = 0;
+	int qntdClientes = clientes.size();
+	int capacidadeTotal = lojas.size();
 
-			if (clientes.at(j)->GetLojaSelecionada() == -1) {
-				clientes.at(j)->SetLojaSelecionada(lojas.at(i)->GetIdentificacao());
-				lojas.at(i)->SomaEstoque(-1);
-			}
-			else if (MenorDistancia(lojas.at(i), lojas.at(clientes.at(j)->GetLojaSelecionada()))) {
-				lojas.at(clientes.at(j)->GetLojaSelecionada())->SomaEstoque(1);
-				lojas.at(i)->SomaEstoque(-1);
-				clientes.at(j)->SetLojaSelecionada(i);
+	while (numeroAlocados < qntdClientes && numeroAlocados < capacidadeTotal)
+	{
+		for (int j = 0; j < qntdClientes; j++)
+		{
+			for (int i = 0; i < capacidadeTotal; i++)
+			{
+				int idPostoAlocadoAtual = clientes.at(j)->GetLojaSelecionada();
+				if (idPostoAlocadoAtual == -1)
+				{
+					if (lojas.at(i)->AlocarClienteLoja(clientes.at(j)->GetIdentificacao(), &clientes))
+					{
+						clientes.at(j)->SetLojaSelecionada(lojas.at(i)->GetIdentificacao());
+						numeroAlocados++;
+					}
+				}
+				else if (clientes.at(j)->PrefereLojaNovaAAlocada(lojas.at(i)->GetIdentificacao()))
+				{
+					if (lojas.at(i)->AlocarClienteLoja(clientes.at(j)->GetIdentificacao(), &clientes))
+					{
+						lojas.at(idPostoAlocadoAtual)->DesalocarClienteLoja(clientes.at(j)->GetIdentificacao());
+						clientes.at(j)->SetLojaSelecionada(lojas.at(i)->GetIdentificacao());
+					}
+				}
 			}
 		}
 	}
+
 }
 
 int main(int argc, const char* argv[])
@@ -117,16 +131,9 @@ int main(int argc, const char* argv[])
 
 	DefinirPrioridadeLojas(*lojas, *clientes);
 
-	for (int i = 0; i < lojas->size(); i++)
+	for (int i = 0; i < qtdLojas; i++)
 	{
-		cout << i << endl;
-		for (int j = 0; j < clientes->size(); j++)
-		{
-			if (clientes->at(j)->GetLojaSelecionada() == i) {
-				cout << j << " ";
-			}
-		}
-		cout << endl;
+		lojas->at(i)->ListarClientesAlocadas();
 	}
 
 	fclose(arquivo);

@@ -13,7 +13,7 @@ private:
 	int estoque;
 	int qtdClientes;
 	Localizacao* localizacao;
-	vector<Cliente*>* clientes;
+	vector<int>* clientes;
 public:
 	Loja();
 	Loja(int identificacao, int estoque, int x, int y);
@@ -25,8 +25,9 @@ public:
 	Localizacao GetLocalizacao();
 	int GetEstoque();
 	void SomaEstoque(int i);
-	void AddClienteFinal(Cliente* cliente);
-	void AddClienteInicio(Cliente* cliente);
-	void AddCliente(Cliente* cliente);
+	bool AlocarClienteLoja(int idCliente, vector<Cliente*>* clientes);
+	int RetornaPosicaoCliente(int idCliente, vector<Cliente*>* clientes);
+	void DesalocarClienteLoja(int idCliente);
+	void ListarClientesAlocadas();
 };
 
