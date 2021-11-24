@@ -118,18 +118,6 @@ Localizacao Cliente::GetLocalizacao()
 	return *this->localizacao;
 }
 
-void Cliente::AddLojaFinal(Loja* loja)
-{
-}
-
-void Cliente::AddLojaInicio(Loja* loja)
-{
-}
-
-void Cliente::AddLoja(Loja* loja)
-{
-}
-
 int Cliente::GetDistanciaLoja(Loja loja)
 {
 	return this->localizacao->CalcularDistancia(loja.GetLocalizacao());
