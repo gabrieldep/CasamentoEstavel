@@ -9,6 +9,7 @@ Cliente::Cliente()
 	this->tipoPagamento = TipoPagamento::NaoInformado;
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
 	this->lojas = new vector<Loja*>;
+	this->lojaSelecionada = new Loja();
 }
 
 Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoPagamento, int x, int y, vector<Loja*> lojas)
@@ -20,6 +21,7 @@ Cliente::Cliente(int identificacao, int idade, std::string uf, std::string tipoP
 	this->localizacao = new Localizacao(x, y);
 	this->ticket = ((float)(60.0 - (float)this->idade) + static_cast<float>(this->uf)) / static_cast<float>(this->tipoPagamento);
 	this->lojas = &lojas;
+	this->lojaSelecionada = new Loja();
 }
 
 Cliente::~Cliente()
@@ -62,6 +64,11 @@ void Cliente::SetUf(UF uf)
 	this->uf = uf;
 }
 
+void Cliente::SetLojaSelecionada(Loja loja)
+{
+	this->lojaSelecionada = &loja;
+}
+
 void Cliente::SetTipoPagamentoFrequente(TipoPagamento tipoPagamento)
 {
 	this->tipoPagamento = tipoPagamento;
@@ -85,6 +92,11 @@ int Cliente::GetIdade()
 int Cliente::GetTicket()
 {
 	return this->ticket;
+}
+
+Loja Cliente::GetLojaSelecionada()
+{
+	return *this->lojaSelecionada;
 }
 
 UF Cliente::GetUf()

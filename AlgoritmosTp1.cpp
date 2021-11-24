@@ -14,7 +14,9 @@ bool MaiorTicket(Cliente* c1, Cliente* c2)
 
 bool MenorDistancia(Loja* l1, Loja* l2)
 {
-	return l1->GetLocalizacao().CalcularDistancia(*localizacaoAtual) < l2->GetLocalizacao().CalcularDistancia(*localizacaoAtual);
+	return l1->GetLocalizacao().CalcularDistancia(*localizacaoAtual) == l2->GetLocalizacao().CalcularDistancia(*localizacaoAtual) ?
+		l1->GetIdentificacao() < l2->GetIdentificacao() :
+		l1->GetLocalizacao().CalcularDistancia(*localizacaoAtual) < l2->GetLocalizacao().CalcularDistancia(*localizacaoAtual);
 }
 
 vector<Cliente*> SortClientes(vector<Cliente*> clientes) {
@@ -25,6 +27,26 @@ vector<Cliente*> SortClientes(vector<Cliente*> clientes) {
 vector<Loja*> SortLoja(vector<Loja*> lojas) {
 	sort(lojas.begin(), lojas.end(), MenorDistancia);
 	return lojas;
+}
+
+void DefinirPrioridadeLojas(vector<Loja*> lojas, vector<Cliente*> clientes) {
+	for (size_t i = 0; i < lojas.size(); i++)
+	{
+		for (size_t j = 0; j < clientes.size(); j++)
+		{
+			if (lojas.at(i)->GetEstoque() == 0)break;
+
+			if (clientes.at(j)->GetLojaSelecionada().GetIdentificacao() == -1) {
+				clientes.at(j)->SetLojaSelecionada(*lojas.at(i));
+				lojas.at(i)->SomaEstoque(-1);
+			}
+			else if (MenorDistancia(&clientes.at(j)->GetLojaSelecionada(), lojas.at(i))) {
+				clientes.at(j)->GetLojaSelecionada().SomaEstoque(1);
+				lojas.at(i)->SomaEstoque(-1);
+				clientes.at(j)->SetLojaSelecionada(*lojas.at(i));
+			}
+		}
+	}
 }
 
 int main(int argc, const char* argv[])
@@ -88,7 +110,9 @@ int main(int argc, const char* argv[])
 			stoi(result.substr(posicoes[2] + 1, result.size())),
 			stoi(result.substr(posicoes[3] + 1, result.size())),
 			SortLoja(*lojas)));
-		
 	}
+
+	DefinirPrioridadeLojas(*lojas, *clientes);
+
 	fclose(arquivo);
 }

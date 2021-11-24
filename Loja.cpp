@@ -3,10 +3,10 @@
 
 Loja::Loja()
 {
-	this->identificacao = 0;
-	this->estoque = 0;
+	this->identificacao = -1;
+	this->estoque = -1;
 	this->localizacao = new Localizacao();
-	this->qtdClientes = 0;
+	this->qtdClientes = -1;
 	this->clientes = new std::vector<Cliente*>;
 }
 
