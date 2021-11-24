@@ -34,12 +34,13 @@ public:
 	void SetLocalizacao(Localizacao* localizacao);
 	int GetIdentificacao();
 	int GetIdade();
-	int GetTicket();
+	float GetTicket();
 	int GetLojaSelecionada();
 	UF GetUf();
 	TipoPagamento GetTipoPagamentoFrequente();
 	Localizacao GetLocalizacao();
 	bool PrefereLojaNovaAAlocada(int idLoja);
 	int RetornaPosicaoLoja(int idLoja);
+	float CalculaTicket();
 };
 
